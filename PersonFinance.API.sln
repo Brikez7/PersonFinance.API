@@ -5,11 +5,11 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.API", "PersonFinance.API\PersonFinance.API.csproj", "{F4A70F2D-A555-43CF-BFEC-D2E4BD2C6D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.DAL.API", "PersonFinance.DAL.API\PersonFinance.DAL.API.csproj", "{8F5B5E5D-2C6B-4F6A-BF20-F1C146A64B6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.API.DAL", "PersonFinance.DAL.API\PersonFinance.API.DAL.csproj", "{8F5B5E5D-2C6B-4F6A-BF20-F1C146A64B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.BLL.API", "PersonFinance.BLL.API\PersonFinance.BLL.API.csproj", "{22A5C11A-C99D-4720-9350-17F18AA7DF1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.API.BLL", "PersonFinance.BLL.API\PersonFinance.API.BLL.csproj", "{22A5C11A-C99D-4720-9350-17F18AA7DF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.Domain.API", "PersonFinance.Domain.API\PersonFinance.Domain.API.csproj", "{9DDEFFCA-92DA-4970-8797-68E70783A221}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonFinance.API.Domain", "PersonFinance.Domain.API\PersonFinance.API.Domain.csproj", "{9DDEFFCA-92DA-4970-8797-68E70783A221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
