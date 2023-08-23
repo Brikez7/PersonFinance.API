@@ -13,6 +13,19 @@ namespace PersonFinance.API.Domain.Entities
         public DateTimeOffset ReturnedDate { get; set; }
         public Money ReturnedMoney { get; set; }
         public TypeContract TypeContract { get; set; }
+
+        public Contract(int id, string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, DateTimeOffset returnedDate, Money returnedMoney, TypeContract typeContract)
+        {
+            Id = id;
+            Person = person;
+            ReceiptDate = receiptDate;
+            InterestRate = interestRate;
+            MoneyCredit = moneyCredit;
+            Returned = returned;
+            ReturnedDate = returnedDate;
+            ReturnedMoney = returnedMoney;
+            TypeContract = typeContract;
+        }
     }
     public enum TypeContract
     {
