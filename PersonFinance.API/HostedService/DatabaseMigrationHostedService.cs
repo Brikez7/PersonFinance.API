@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.DAL;
 
-namespace PersonFinance.API
+namespace PersonFinance.API.HostedService
 {
     public class DatabaseMigrationHostedService : IHostedService
     {

@@ -9,6 +9,7 @@ namespace PersonFinance.API
 
             builder.AddPostgresDB();
             builder.AddRepositores();
+            builder.AddHostedServices();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

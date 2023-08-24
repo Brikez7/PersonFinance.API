@@ -2,6 +2,7 @@
 using PersonFinance.API.DAL;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.HostedService;
 
 namespace PersonFinance.API
 {
@@ -20,6 +21,10 @@ namespace PersonFinance.API
         {
             webApplicationBuilder.Services.AddDbContext<PersonFinanceContext>(opt => opt.UseNpgsql(
                 webApplicationBuilder.Configuration.GetConnectionString(PersonFinanceContext.NameConnection)));
+        }
+        public static void AddHostedServices(this WebApplicationBuilder webApplicationBuilder)
+        {
+            webApplicationBuilder.Services.AddHostedService<DatabaseMigrationHostedService>();
         }
     }
 }
