@@ -4,9 +4,9 @@ using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities.structs;
 using System.Linq.Expressions;
 
-namespace PersonFinance.API.DAL.ConfigurationEntities
+namespace PersonFinance.API.DAL.ConfigurationEntities.Exstentionses
 {
-    public static class MoneyExtensions 
+    public static class MoneyExtensions
     {
         public static void OwnsOneMoney<T>(this EntityTypeBuilder<T> builder, Expression<Func<T, Money?>> fieldMoney) where T : class
         {
@@ -14,10 +14,10 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
                 on =>
                 {
                     on.Property(e => e.Corrency)
-                      .HasColumnType(EntityDataTypes.Decimal);
+                      .HasColumnType(EntityDataTypes.SmallInt);
 
                     on.Property(e => e.Amount)
-                      .HasColumnType(EntityDataTypes.SmallInt); 
+                      .HasColumnType(EntityDataTypes.Decimal);
                 }
             );
         }

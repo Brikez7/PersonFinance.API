@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PersonFinance.API.DAL.ConfigurationEntities.Exstentionses;
 using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities;
 
