@@ -20,7 +20,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
         
             builder.Property(e => e.PersonId) 
                    .HasColumnType(EntityDataTypes.Guid);
-
+                   
             builder.OwnsOneMoney(e => e.Money);
 
             builder.HasOne(e => e.Savings)

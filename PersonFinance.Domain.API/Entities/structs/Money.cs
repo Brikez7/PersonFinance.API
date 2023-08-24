@@ -1,4 +1,4 @@
-﻿namespace PersonFinance.API.Domain.Entities.structs
+namespace PersonFinance.API.Domain.Entities.structs
 {
     public class Money
     {

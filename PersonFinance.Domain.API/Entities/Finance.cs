@@ -1,4 +1,4 @@
-﻿using PersonFinance.API.Domain.Entities.structs;
+using PersonFinance.API.Domain.Entities.structs;
 
 namespace PersonFinance.API.Domain.Entities
 {
