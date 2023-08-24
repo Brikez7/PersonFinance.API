@@ -18,11 +18,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.Id)
                    .HasColumnType(EntityDataTypes.Guid);
 
-            builder.Property(e => e.Currency)
-                   .HasColumnType(EntityDataTypes.SmallInt);
-
-            builder.Property(e => e.MoneyReceived)
-                   .HasColumnType(EntityDataTypes.Decimal);
+            builder.OwnsOneMoney(e => e.MoneyReceived);
 
             builder.Property(e => e.ReceiptDate)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);

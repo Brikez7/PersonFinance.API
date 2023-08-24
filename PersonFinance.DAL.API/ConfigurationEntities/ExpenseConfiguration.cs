@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities;
-using PersonFinance.API.Domain.Entities.structs;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
@@ -27,11 +26,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.ExpenditureDate)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);
 
-            builder.Property(e => e.Currency)
-                   .HasColumnType(EntityDataTypes.SmallInt);
-
-            builder.Property(e => e.MoneySpent)
-                   .HasColumnType(EntityDataTypes.Decimal);
+            builder.OwnsOneMoney(e => e.MoneySpent);
 
             builder.Property(e => e.PurposeSpending)
                    .HasColumnType(EntityDataTypes.Character_varying);

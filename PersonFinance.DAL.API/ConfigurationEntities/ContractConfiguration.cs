@@ -19,15 +19,11 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.Property(e => e.Person)
                    .HasColumnType(EntityDataTypes.Character_varying);
-            
-            builder.Property(e => e.Currency)
-                   .HasColumnType(EntityDataTypes.SmallInt);
 
             builder.Property(e => e.InterestRate)
                    .HasColumnType(EntityDataTypes.Decimal);
 
-            builder.Property(e => e.MoneyCredit)
-                   .HasColumnType(EntityDataTypes.Decimal);
+            builder.OwnsOneMoney(e => e.MoneyCredit);
 
             builder.Property(e => e.Returned)
                    .HasColumnType(EntityDataTypes.Bool);
@@ -35,8 +31,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.ReturnedDate)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);
 
-            builder.Property(e => e.ReturnedMoney)
-                   .HasColumnType(EntityDataTypes.Decimal);
+            builder.OwnsOneMoney(e => e.ReturnedMoney);
 
             builder.Property(e => e.TypeContract)
                    .HasColumnType(EntityDataTypes.SmallInt);

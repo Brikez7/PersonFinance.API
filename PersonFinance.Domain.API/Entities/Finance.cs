@@ -1,4 +1,4 @@
-﻿using PersonFinance.API.Domain.Entities.structs;
+using PersonFinance.API.Domain.Entities.structs;
 
 namespace PersonFinance.API.Domain.Entities
 {
@@ -6,22 +6,19 @@ namespace PersonFinance.API.Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid PersonId { get; set; }
-        public decimal Money { get; set; }
-        public Currency Currency { get; set; }
-
-        public Finance(Guid personId, decimal money, Currency currency)
+        public Money Money { get; set; }
+        private Finance() { }
+        public Finance(Guid personId, Money money)
         {
             PersonId = personId;
             Money = money;
-            Currency = currency;
         }
 
-        public Finance(Guid id, Guid personId, decimal money, Currency currency)
+        public Finance(Guid id, Guid personId, Money money)
         {
             Id = id;
             PersonId = personId;
             Money = money;
-            Currency = currency;
         }
 
         public virtual MoneyAccount? MoneyAccount { get; set; }
