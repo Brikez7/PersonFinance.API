@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using PersonFinance.API.Domain.Entities.structs;
 
 #nullable disable
 
@@ -19,11 +18,12 @@ namespace PersonFinance.API.DAL.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Person = table.Column<string>(type: "character varying", nullable: false),
                     ReceiptDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Currency = table.Column<short>(type: "smallint", nullable: false),
                     InterestRate = table.Column<decimal>(type: "decimal", nullable: false),
-                    MoneyCredit = table.Column<ValueTuple<decimal, Currency>>(type: "record", nullable: false),
+                    MoneyCredit = table.Column<decimal>(type: "decimal", nullable: false),
                     Returned = table.Column<bool>(type: "boolean", nullable: false),
                     ReturnedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    ReturnedMoney = table.Column<ValueTuple<decimal, Currency>>(type: "record", nullable: true),
+                    ReturnedMoney = table.Column<decimal>(type: "decimal", nullable: true),
                     TypeContract = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
@@ -39,7 +39,8 @@ namespace PersonFinance.API.DAL.Migrations
                     Category = table.Column<string>(type: "character varying", nullable: false),
                     SubCategory = table.Column<string>(type: "character varying", nullable: false),
                     ExpenditureDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    MoneySpent = table.Column<ValueTuple<decimal, Currency>>(type: "record", nullable: false),
+                    Currency = table.Column<short>(type: "smallint", nullable: false),
+                    MoneySpent = table.Column<decimal>(type: "decimal", nullable: false),
                     PurposeSpending = table.Column<string>(type: "character varying", nullable: false)
                 },
                 constraints: table =>
@@ -52,7 +53,8 @@ namespace PersonFinance.API.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    MoneyReceived = table.Column<ValueTuple<decimal, Currency>>(type: "record", nullable: false),
+                    Currency = table.Column<short>(type: "smallint", nullable: false),
+                    MoneyReceived = table.Column<decimal>(type: "decimal", nullable: false),
                     ReceiptDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     TypeActivity = table.Column<string>(type: "character varying", nullable: false)
                 },
@@ -99,7 +101,8 @@ namespace PersonFinance.API.DAL.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PersonId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Money = table.Column<ValueTuple<decimal, Currency>>(type: "record", nullable: false)
+                    Money = table.Column<decimal>(type: "decimal", nullable: false),
+                    Currency = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {

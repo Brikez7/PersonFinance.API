@@ -3,12 +3,12 @@
     public struct Money
     {
         public decimal Amount { get; set; }
-        public Currency Corrency { get; set; }
+        public Currency Currency { get; set; }
 
         public Money(decimal amount, Currency corrency)
         {
             Amount = amount;
-            Corrency = corrency;
+            Currency = corrency;
         }
     }
     public enum Currency

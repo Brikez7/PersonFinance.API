@@ -21,8 +21,11 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.PersonId) 
                    .HasColumnType(EntityDataTypes.Guid);
 
+            builder.Property(e => e.Currency)
+                   .HasColumnType(EntityDataTypes.SmallInt);
+
             builder.Property(e => e.Money)
-                   .HasConversion(p => new ValueTuple<decimal, Currency>(p.Amount, p.Corrency), p => new Money(p.Item1, p.Item2));
+                   .HasColumnType(EntityDataTypes.Decimal);
 
             builder.HasOne(e => e.Savings)
                    .WithMany(e => e.Finances)

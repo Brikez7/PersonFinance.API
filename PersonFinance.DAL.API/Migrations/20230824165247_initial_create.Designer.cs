@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonFinance.API.DAL;
-using PersonFinance.API.Domain.Entities.structs;
 
 #nullable disable
 
 namespace PersonFinance.API.DAL.Migrations
 {
     [DbContext(typeof(PersonFinanceContext))]
-    [Migration("20230824153138_initial_create")]
+    [Migration("20230824165247_initial_create")]
     partial class initial_create
     {
         /// <inheritdoc />
@@ -32,11 +31,14 @@ namespace PersonFinance.API.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<short>("Currency")
+                        .HasColumnType("smallint");
+
                     b.Property<decimal>("InterestRate")
                         .HasColumnType("decimal");
 
-                    b.Property<ValueTuple<decimal, Currency>>("MoneyCredit")
-                        .HasColumnType("record");
+                    b.Property<decimal>("MoneyCredit")
+                        .HasColumnType("decimal");
 
                     b.Property<string>("Person")
                         .IsRequired()
@@ -51,8 +53,8 @@ namespace PersonFinance.API.DAL.Migrations
                     b.Property<DateTimeOffset?>("ReturnedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<ValueTuple<decimal, Currency>?>("ReturnedMoney")
-                        .HasColumnType("record");
+                    b.Property<decimal?>("ReturnedMoney")
+                        .HasColumnType("decimal");
 
                     b.Property<short>("TypeContract")
                         .HasColumnType("smallint");
@@ -72,11 +74,14 @@ namespace PersonFinance.API.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("character varying");
 
+                    b.Property<short>("Currency")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTimeOffset>("ExpenditureDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<ValueTuple<decimal, Currency>>("MoneySpent")
-                        .HasColumnType("record");
+                    b.Property<decimal>("MoneySpent")
+                        .HasColumnType("decimal");
 
                     b.Property<string>("PurposeSpending")
                         .IsRequired()
@@ -97,8 +102,11 @@ namespace PersonFinance.API.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<ValueTuple<decimal, Currency>>("Money")
-                        .HasColumnType("record");
+                    b.Property<short>("Currency")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("Money")
+                        .HasColumnType("decimal");
 
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
@@ -116,8 +124,11 @@ namespace PersonFinance.API.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<ValueTuple<decimal, Currency>>("MoneyReceived")
-                        .HasColumnType("record");
+                    b.Property<short>("Currency")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("MoneyReceived")
+                        .HasColumnType("decimal");
 
                     b.Property<DateTimeOffset>("ReceiptDate")
                         .HasColumnType("timestamp with time zone");

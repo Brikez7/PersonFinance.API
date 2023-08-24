@@ -27,8 +27,11 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.ExpenditureDate)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);
 
+            builder.Property(e => e.Currency)
+                   .HasColumnType(EntityDataTypes.SmallInt);
+
             builder.Property(e => e.MoneySpent)
-                   .HasConversion(p => new ValueTuple<decimal, Currency>(p.Amount, p.Corrency), p => new Money(p.Item1, p.Item2));
+                   .HasColumnType(EntityDataTypes.Decimal);
 
             builder.Property(e => e.PurposeSpending)
                    .HasColumnType(EntityDataTypes.Character_varying);
