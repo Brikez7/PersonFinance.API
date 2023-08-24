@@ -20,7 +20,7 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var savings = await _savingsRepository.Get().ToListAsync();
+            var savings = await _savingsRepository.Get().ToArrayAsync();
             return Ok(savings);
         }
 
@@ -29,8 +29,9 @@ namespace PersonFinance.API.Controllers
         {
             var newUser = await _savingsRepository.AddAsync(new Savings(nameUser));
             await _savingsRepository.SaveChangesAsync();
-            return Ok(newUser);
+            return Ok(new Tuple<bool, Savings>(true, newUser));
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
