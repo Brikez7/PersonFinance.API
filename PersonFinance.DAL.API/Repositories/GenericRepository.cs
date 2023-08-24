@@ -18,13 +18,15 @@ namespace PersonFinance.API.DAL.Repositories
             return _dbSet.AsNoTracking();
         }
 
-        public async Task Create(TEntity item)
+        public async Task<TEntity> AddAsync(TEntity item)
         {
-            await _dbSet.AddAsync(item);
+            return (await _dbSet.AddAsync(item)).Entity;
         }
-        public void Update(TEntity item)
+        public TEntity Update(TEntity item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            var updatedEntity = _dbSet.Update(item);
+
+            return updatedEntity.Entity;
         }
         public void Remove(TEntity entity)
         {
@@ -33,6 +35,11 @@ namespace PersonFinance.API.DAL.Repositories
         public void RemoveRange(IQueryable<TEntity> entities)
         {
             _dbSet.RemoveRange(entities);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+             await _context.SaveChangesAsync();
         }
     }
 }

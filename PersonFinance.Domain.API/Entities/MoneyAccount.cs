@@ -8,7 +8,7 @@ namespace PersonFinance.API.Domain.Entities
         public Guid Number { get; set; }
         public string Bank { get; set; }
         public TypeAccount TypeAccount { get; set; }
-
+        private MoneyAccount() { }
         public MoneyAccount(Guid number, string bank, TypeAccount typeAccount)
         {
             Number = number;
@@ -23,7 +23,7 @@ namespace PersonFinance.API.Domain.Entities
             Bank = bank;
             TypeAccount = typeAccount;
         }
-        public virtual List<Finance> Finances { get; set; } = new List<Finance>();
+        public virtual List<Finance>? Finances { get; set; } = new List<Finance>();
     }
     public enum TypeAccount 
     {
