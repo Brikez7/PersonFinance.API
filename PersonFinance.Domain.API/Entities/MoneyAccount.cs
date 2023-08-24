@@ -15,7 +15,7 @@ namespace PersonFinance.API.Domain.Entities
             Bank = bank;
             TypeAccount = typeAccount;
         }
-        public virtual List<Money> Finance { get; set; } = new List<Money>();
+        public virtual List<Finance> Finances { get; set; } = new List<Finance>();
     }
     public enum TypeAccount 
     {

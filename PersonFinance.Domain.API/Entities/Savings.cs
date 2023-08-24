@@ -5,12 +5,15 @@ namespace PersonFinance.API.Domain.Entities
     public class Savings
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
 
-        public Savings(Guid id)
+        public Savings(Guid id, string name)
         {
             Id = id;
+            Name = name;
         }
-        public virtual List<Finance>? Finances { get; set; }
-        public virtual List<MoneyAccount>? MoneyAccounts { get; set; }
+
+        public virtual List<Finance> Finances { get; set; } = new List<Finance>();
+        public virtual List<MoneyAccount> MoneyAccounts { get; set; } = new List<MoneyAccount>();
     }
 }
