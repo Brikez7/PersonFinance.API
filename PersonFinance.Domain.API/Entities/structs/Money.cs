@@ -1,10 +1,9 @@
 ﻿namespace PersonFinance.API.Domain.Entities.structs
 {
-    public struct Money
+    public class Money
     {
         public decimal Amount { get; set; }
         public Currency Corrency { get; set; }
-
         public Money(decimal amount, Currency corrency)
         {
             Amount = amount;

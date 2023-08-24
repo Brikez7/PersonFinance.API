@@ -7,7 +7,7 @@ namespace PersonFinance.API.Domain.Entities
         public Guid Id { get; set; }
         public Guid PersonId { get; set; }
         public Money Money { get; set; }
-
+        private Finance() { }
         public Finance(Guid personId, Money money)
         {
             PersonId = personId;

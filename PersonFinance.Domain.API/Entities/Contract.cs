@@ -14,6 +14,7 @@ namespace PersonFinance.API.Domain.Entities
         public Money? ReturnedMoney { get; set; }
         public TypeContract TypeContract { get; set; }
 
+        private Contract() { }
         public Contract(string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, TypeContract typeContract)
         {
             Person = person;

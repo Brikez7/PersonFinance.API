@@ -8,7 +8,7 @@ namespace PersonFinance.API.Domain.Entities
         public Money MoneyReceived { get; set; }
         public DateTimeOffset ReceiptDate { get; set; }
         public string TypeActivity { get; set; }
-
+        public Income() { }
         public Income(Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
         {
             MoneyReceived = moneyReceived;

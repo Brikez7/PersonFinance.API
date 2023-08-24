@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonFinance.API.DAL;
-using PersonFinance.API.Domain.Entities.structs;
 
 #nullable disable
 
@@ -30,10 +29,7 @@ namespace PersonFinance.API.DAL.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("InterestRate")
-                        .HasColumnType("decimal");
-
-                    b.Property<ValueTuple<decimal, Currency>>("MoneyCredit")
-                        .HasColumnType("record");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Person")
                         .IsRequired()
@@ -47,9 +43,6 @@ namespace PersonFinance.API.DAL.Migrations
 
                     b.Property<DateTimeOffset?>("ReturnedDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<ValueTuple<decimal, Currency>?>("ReturnedMoney")
-                        .HasColumnType("record");
 
                     b.Property<short>("TypeContract")
                         .HasColumnType("smallint");
@@ -72,9 +65,6 @@ namespace PersonFinance.API.DAL.Migrations
                     b.Property<DateTimeOffset>("ExpenditureDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<ValueTuple<decimal, Currency>>("MoneySpent")
-                        .HasColumnType("record");
-
                     b.Property<string>("PurposeSpending")
                         .IsRequired()
                         .HasColumnType("character varying");
@@ -94,9 +84,6 @@ namespace PersonFinance.API.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<ValueTuple<decimal, Currency>>("Money")
-                        .HasColumnType("record");
-
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
@@ -112,9 +99,6 @@ namespace PersonFinance.API.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<ValueTuple<decimal, Currency>>("MoneyReceived")
-                        .HasColumnType("record");
 
                     b.Property<DateTimeOffset>("ReceiptDate")
                         .HasColumnType("timestamp with time zone");
@@ -169,6 +153,77 @@ namespace PersonFinance.API.DAL.Migrations
                     b.ToTable("savings_persons", (string)null);
                 });
 
+            modelBuilder.Entity("PersonFinance.API.Domain.Entities.Contract", b =>
+                {
+                    b.OwnsOne("PersonFinance.API.Domain.Entities.structs.Money", "MoneyCredit", b1 =>
+                        {
+                            b1.Property<Guid>("ContractId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<short>("Amount")
+                                .HasColumnType("smallint");
+
+                            b1.Property<decimal>("Corrency")
+                                .HasColumnType("numeric");
+
+                            b1.HasKey("ContractId");
+
+                            b1.ToTable("contracts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ContractId");
+                        });
+
+                    b.OwnsOne("PersonFinance.API.Domain.Entities.structs.Money", "ReturnedMoney", b1 =>
+                        {
+                            b1.Property<Guid>("ContractId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<short>("Amount")
+                                .HasColumnType("smallint");
+
+                            b1.Property<decimal>("Corrency")
+                                .HasColumnType("numeric");
+
+                            b1.HasKey("ContractId");
+
+                            b1.ToTable("contracts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ContractId");
+                        });
+
+                    b.Navigation("MoneyCredit")
+                        .IsRequired();
+
+                    b.Navigation("ReturnedMoney");
+                });
+
+            modelBuilder.Entity("PersonFinance.API.Domain.Entities.Expense", b =>
+                {
+                    b.OwnsOne("PersonFinance.API.Domain.Entities.structs.Money", "MoneySpent", b1 =>
+                        {
+                            b1.Property<Guid>("ExpenseId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<short>("Amount")
+                                .HasColumnType("smallint");
+
+                            b1.Property<decimal>("Corrency")
+                                .HasColumnType("numeric");
+
+                            b1.HasKey("ExpenseId");
+
+                            b1.ToTable("expenses");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ExpenseId");
+                        });
+
+                    b.Navigation("MoneySpent")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PersonFinance.API.Domain.Entities.Finance", b =>
                 {
                     b.HasOne("PersonFinance.API.Domain.Entities.MoneyAccount", "MoneyAccount")
@@ -183,9 +238,56 @@ namespace PersonFinance.API.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("PersonFinance.API.Domain.Entities.structs.Money", "Money", b1 =>
+                        {
+                            b1.Property<Guid>("FinanceId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<short>("Amount")
+                                .HasColumnType("smallint");
+
+                            b1.Property<decimal>("Corrency")
+                                .HasColumnType("numeric");
+
+                            b1.HasKey("FinanceId");
+
+                            b1.ToTable("finances");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FinanceId");
+                        });
+
+                    b.Navigation("Money")
+                        .IsRequired();
+
                     b.Navigation("MoneyAccount");
 
                     b.Navigation("Savings");
+                });
+
+            modelBuilder.Entity("PersonFinance.API.Domain.Entities.Income", b =>
+                {
+                    b.OwnsOne("PersonFinance.API.Domain.Entities.structs.Money", "MoneyReceived", b1 =>
+                        {
+                            b1.Property<Guid>("IncomeId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<short>("Amount")
+                                .HasColumnType("smallint");
+
+                            b1.Property<decimal>("Corrency")
+                                .HasColumnType("numeric");
+
+                            b1.HasKey("IncomeId");
+
+                            b1.ToTable("incomes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("IncomeId");
+                        });
+
+                    b.Navigation("MoneyReceived")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PersonFinance.API.Domain.Entities.MoneyAccount", b =>
