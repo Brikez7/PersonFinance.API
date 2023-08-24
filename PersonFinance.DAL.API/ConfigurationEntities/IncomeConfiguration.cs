@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.Domain.Entities.structs;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
@@ -17,11 +18,8 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.Id)
                    .HasColumnType(EntityDataTypes.Guid);
 
-            builder.Property(e => e.MoneyReceived.Amount)
-                   .HasColumnType(EntityDataTypes.Decimal);
-
-            builder.Property(e => e.MoneyReceived.Corrency)
-                   .HasColumnType(EntityDataTypes.SmallInt);
+            builder.Property(e => e.MoneyReceived)
+                   .HasConversion(p => new ValueTuple<decimal, Currency>(p.Amount, p.Corrency), p => new Money(p.Item1, p.Item2));
 
             builder.Property(e => e.ReceiptDate)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);

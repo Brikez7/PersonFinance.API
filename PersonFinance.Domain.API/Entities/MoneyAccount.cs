@@ -5,10 +5,18 @@ namespace PersonFinance.API.Domain.Entities
     public class MoneyAccount
     {
         public Guid Id { get; set; }
-        public string Number { get; set; }
+        public Guid Number { get; set; }
         public string Bank { get; set; }
         public TypeAccount TypeAccount { get; set; }
-        public MoneyAccount(Guid id, string number, string bank, TypeAccount typeAccount)
+
+        public MoneyAccount(Guid number, string bank, TypeAccount typeAccount)
+        {
+            Number = number;
+            Bank = bank;
+            TypeAccount = typeAccount;
+        }
+
+        public MoneyAccount(Guid id, Guid number, string bank, TypeAccount typeAccount)
         {
             Id = id;
             Number = number;

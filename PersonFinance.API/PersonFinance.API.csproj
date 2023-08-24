@@ -4,11 +4,22 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>5f438870-c8bf-42ee-af2a-051128491477</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PersonFinance.BLL.API\PersonFinance.API.BLL.csproj" />
+    <ProjectReference Include="..\PersonFinance.DAL.API\PersonFinance.API.DAL.csproj" />
+    <ProjectReference Include="..\PersonFinance.Domain.API\PersonFinance.API.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace PersonFinance.API.DAL.Repositories
+﻿namespace PersonFinance.API.DAL.Repositories
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

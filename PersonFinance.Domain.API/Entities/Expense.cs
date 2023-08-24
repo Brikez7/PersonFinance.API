@@ -11,6 +11,15 @@ namespace PersonFinance.API.Domain.Entities
         public Money MoneySpent { get; set; }
         public string PurposeSpending { get; set; }
 
+        public Expense(string category, string subCategory, DateTimeOffset expenditureDate, Money moneySpent, string purposeSpending)
+        {
+            Category = category;
+            SubCategory = subCategory;
+            ExpenditureDate = expenditureDate;
+            MoneySpent = moneySpent;
+            PurposeSpending = purposeSpending;
+        }
+
         public Expense(Guid id, string category, string subCategory, DateTimeOffset expenditureDate, Money moneySpent, string purposeSpending)
         {
             Id = id;

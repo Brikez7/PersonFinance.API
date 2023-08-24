@@ -7,6 +7,11 @@ namespace PersonFinance.API.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
 
+        public Savings(string name)
+        {
+            Name = name;
+        }
+
         public Savings(Guid id, string name)
         {
             Id = id;

@@ -2,12 +2,12 @@
 
 namespace PersonFinance.API.DAL.Repositories
 {
-    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly DbContext _context;
+        private readonly PersonFinanceContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        public EFGenericRepository(DbContext context)
+        public GenericRepository(PersonFinanceContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

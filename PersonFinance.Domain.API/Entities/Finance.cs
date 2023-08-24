@@ -8,6 +8,12 @@ namespace PersonFinance.API.Domain.Entities
         public Guid PersonId { get; set; }
         public Money Money { get; set; }
 
+        public Finance(Guid personId, Money money)
+        {
+            PersonId = personId;
+            Money = money;
+        }
+
         public Finance(Guid id, Guid personId, Money money)
         {
             Id = id;

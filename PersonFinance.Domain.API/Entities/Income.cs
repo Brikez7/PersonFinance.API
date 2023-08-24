@@ -9,6 +9,13 @@ namespace PersonFinance.API.Domain.Entities
         public DateTimeOffset ReceiptDate { get; set; }
         public string TypeActivity { get; set; }
 
+        public Income(Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
+        {
+            MoneyReceived = moneyReceived;
+            ReceiptDate = receiptDate;
+            TypeActivity = typeActivity;
+        }
+
         public Income(Guid id, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
         {
             Id = id;

@@ -7,6 +7,9 @@ namespace PersonFinance.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.AddPostgresDB();
+            builder.AddRepositores();
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
