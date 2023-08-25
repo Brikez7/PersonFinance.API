@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonFinance.API.DAL.ConfigurationEntities.Exstentionses;
 using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities;
-using PersonFinance.API.Domain.Entities.structs;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
@@ -17,6 +16,9 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.HasKey(t => t.Id);
 
             builder.Property(e => e.Id)
+                   .HasColumnType(EntityDataTypes.Guid);
+
+            builder.Property(e => e.PersonId)
                    .HasColumnType(EntityDataTypes.Guid);
 
             builder.OwnsOneMoney(e => e.MoneyReceived);

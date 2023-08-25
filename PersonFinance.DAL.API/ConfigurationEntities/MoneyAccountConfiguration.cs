@@ -18,7 +18,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
                    .HasColumnType(EntityDataTypes.Guid);
             
             builder.Property(e => e.NumberBank)
-                   .HasColumnType(EntityDataTypes.Guid);
+                   .HasColumnType(EntityDataTypes.Character_varying);
 
             builder.Property(e => e.Bank)
                    .HasColumnType(EntityDataTypes.Character_varying);

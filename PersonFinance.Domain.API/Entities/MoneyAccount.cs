@@ -4,11 +4,11 @@
     {
         public Guid Id { get; set; }
         public Guid SavingsId { get; set; }
-        public Guid NumberBank { get; set; }
+        public string NumberBank { get; set; }
         public string Bank { get; set; }
         public TypeAccount TypeAccount { get; set; }
         public MoneyAccount() { }
-        public MoneyAccount(Guid number, string bank, TypeAccount typeAccount, Guid savingsId)
+        public MoneyAccount(string number, string bank, TypeAccount typeAccount, Guid savingsId)
         {
             NumberBank = number;
             Bank = bank;
@@ -16,7 +16,7 @@
             SavingsId = savingsId;
         }
 
-        public MoneyAccount(Guid id, Guid number, string bank, TypeAccount typeAccount, Guid savingsId)
+        public MoneyAccount(Guid id, string number, string bank, TypeAccount typeAccount, Guid savingsId)
         {
             Id = id;
             NumberBank = number;

@@ -25,9 +25,9 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPost("Add/{nameUser}")]
-        public async Task<IActionResult> Add([FromRoute] string nameUser)
+        public async Task<IActionResult> Add([FromRoute] Savings savings)
         {
-            var newUser = await _savingsRepository.AddAsync(new Savings(nameUser));
+            var newUser = await _savingsRepository.AddAsync(savings);
             await _savingsRepository.SaveChangesAsync();
             return Ok(new Tuple<bool, Savings>(true, newUser));
         }

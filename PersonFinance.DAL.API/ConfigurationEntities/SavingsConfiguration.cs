@@ -17,6 +17,9 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.Id)
                    .HasColumnType(EntityDataTypes.Guid);
 
+            builder.Property(e => e.PersonId)
+                   .HasColumnType(EntityDataTypes.Guid);
+            
             builder.Property(e => e.Name)
                    .HasColumnType(EntityDataTypes.Character_varying);
         }

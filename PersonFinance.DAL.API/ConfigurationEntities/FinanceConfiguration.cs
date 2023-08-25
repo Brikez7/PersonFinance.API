@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PersonFinance.API.DAL.ConfigurationEntities.Exstentionses;
 using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities;
-using PersonFinance.API.Domain.Entities.structs;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
-    internal class FinanceConfiguration : IEntityTypeConfiguration<Finance>
+    public class FinanceConfiguration : IEntityTypeConfiguration<Finance>
     {
         public const string Table_name = "finances";
         public void Configure(EntityTypeBuilder<Finance> builder)

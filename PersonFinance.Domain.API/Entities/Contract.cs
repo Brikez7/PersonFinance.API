@@ -5,7 +5,8 @@ namespace PersonFinance.API.Domain.Entities
     public class Contract
     {
         public Guid Id { get; set; }
-        public string Person { get; set; }
+        public Guid PersonId { get; set; }
+        public string OtherPerson { get; set; }
         public DateTimeOffset ReceiptDate { get; set; }
         public decimal InterestRate { get; set; }
         public Money MoneyCredit { get; set; }
@@ -15,20 +16,21 @@ namespace PersonFinance.API.Domain.Entities
         public TypeContract TypeContract { get; set; }
 
         private Contract() { }
-        public Contract(string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, TypeContract typeContract)
+        public Contract(string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, TypeContract typeContract, Guid personId)
         {
-            Person = person;
+            OtherPerson = person;
             ReceiptDate = receiptDate;
             InterestRate = interestRate;
             MoneyCredit = moneyCredit;
             Returned = returned;
             TypeContract = typeContract;
+            PersonId = personId;
         }
 
-        public Contract(Guid id, string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, DateTimeOffset returnedDate, Money returnedMoney, TypeContract typeContract)
+        public Contract(Guid id, string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, DateTimeOffset returnedDate, Money returnedMoney, TypeContract typeContract, Guid personId)
         {
             Id = id;
-            Person = person;
+            OtherPerson = person;
             ReceiptDate = receiptDate;
             InterestRate = interestRate;
             MoneyCredit = moneyCredit;
@@ -36,7 +38,9 @@ namespace PersonFinance.API.Domain.Entities
             ReturnedDate = returnedDate;
             ReturnedMoney = returnedMoney;
             TypeContract = typeContract;
+            PersonId = personId;
         }
+        public virtual Person? Person { get; set; }
     }
     public enum TypeContract
     {

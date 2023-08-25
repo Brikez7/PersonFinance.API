@@ -13,6 +13,7 @@ namespace PersonFinance.API.DAL
         public DbSet<Savings> Savings { get; set; }
         public DbSet<MoneyAccount> MoneyAccounts { get; set; }
         public DbSet<Finance> Finances { get; set; }    
+        public DbSet<Person> People { get; set; }
         public PersonFinanceContext(DbContextOptions<PersonFinanceContext> options) : base(options)
         {
         }
