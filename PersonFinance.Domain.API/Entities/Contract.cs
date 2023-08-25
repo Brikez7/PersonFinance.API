@@ -9,7 +9,7 @@ namespace PersonFinance.API.Domain.Entities
         public DateTimeOffset ReceiptDate { get; set; }
         public decimal InterestRate { get; set; }
         public Money MoneyCredit { get; set; }
-        public bool Returned { get; set; }
+        public bool Returned { get; set; } = false;
         public DateTimeOffset? ReturnedDate { get; set; }
         public Money? ReturnedMoney { get; set; }
         public TypeContract TypeContract { get; set; }

@@ -20,8 +20,8 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var moneyAccounts = await _financeRepository.Get().ToArrayAsync();
-            return Ok(moneyAccounts);
+            var finances = await _financeRepository.Get().ToArrayAsync();
+            return Ok(finances);
         }
 
         [HttpPost("Add")]
