@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace PersonFinance.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var persons = await _personsRepository.Get().Select(x => x.ToPersonDTO()).ToArrayAsync();
-            return Ok(persons);
+            return Ok(new StandardResponse<PersonDTO[]>(persons));
         }
 
         [HttpPost("Add/{newName}")]
@@ -32,7 +33,7 @@ namespace PersonFinance.API.Controllers
 
             await _personsRepository.SaveChangesAsync();
 
-            return Ok(new Tuple<bool, PersonDTO>(true, newPerson.ToPersonDTO()));
+            return Ok(new StandardResponse<PersonDTO>(newPerson.ToPersonDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -43,10 +44,10 @@ namespace PersonFinance.API.Controllers
             {
                 _personsRepository.Remove(deletedPerson);
                 await _personsRepository.SaveChangesAsync();
-                return Ok(true);
+                return Ok(new StandardResponse<bool>(true));
             }
 
-            return Ok(false);
+            return Ok(new StandardResponse<bool>(false, ServiceCode.ErrorDelete));
         }
 
         [HttpPut("Update")]
@@ -57,9 +58,9 @@ namespace PersonFinance.API.Controllers
             {
                 _personsRepository.Update(updatedPerson.ToPerson());
                 await _personsRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, PersonDTO>(true, updatedPerson));
+                return Ok(new StandardResponse<PersonDTO>(updatedPerson));
             }
-            return Ok(new Tuple<bool, PersonDTO>(false, updatedPerson));
+            return Ok(new StandardResponse<PersonDTO>(updatedPerson, ServiceCode.ErrorUpdate));
         }
     }
 }

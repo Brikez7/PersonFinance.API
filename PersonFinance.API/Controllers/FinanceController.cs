@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace PersonFinance.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var finances = await _financeRepository.Get().Select(x => x.ToFinanceDTO()).ToArrayAsync();
-            return Ok(finances);
+            return Ok(new StandardResponse<FinanceDTO[]>(finances));
         }
 
         [HttpPost("Add")]
@@ -30,7 +31,7 @@ namespace PersonFinance.API.Controllers
         {
             var newFinance = await _financeRepository.AddAsync(finance.ToFinance());
             await _financeRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, FinanceDTO>(true, newFinance.ToFinanceDTO()));
+            return Ok(new StandardResponse<FinanceDTO>(newFinance.ToFinanceDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -41,10 +42,10 @@ namespace PersonFinance.API.Controllers
             {
                 _financeRepository.Remove(deletedFinance);
                 await _financeRepository.SaveChangesAsync();
-                return Ok(true);
+                return Ok(new StandardResponse<bool>(true));
             }
 
-            return Ok(false);
+            return Ok(new StandardResponse<bool>(false, ServiceCode.ErrorDelete));
         }
 
         [HttpPut("Update")]
@@ -55,9 +56,9 @@ namespace PersonFinance.API.Controllers
             {
                 var updatedFinance = _financeRepository.Update(finance.ToFinance());
                 await _financeRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, FinanceDTO>(true, finance));
+                return Ok(new StandardResponse<FinanceDTO>(finance));
             }
-            return Ok(new Tuple<bool, FinanceDTO>(false, finance));
+            return Ok(new StandardResponse<FinanceDTO>(finance, ServiceCode.ErrorUpdate));
         }
     }
 }

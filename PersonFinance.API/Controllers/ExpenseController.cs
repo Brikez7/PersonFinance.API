@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace PersonFinance.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var expenses = await _expenseRepository.Get().Select(x => x.ToExpenseDTO()).ToArrayAsync();
-            return Ok(expenses);
+            return Ok(new StandardResponse<ExpenseDTO[]>(expenses));
         }
 
         [HttpPost("Add")]
@@ -30,7 +31,7 @@ namespace PersonFinance.API.Controllers
         {
             var newExpense = await _expenseRepository.AddAsync(expense.ToExpense());
             await _expenseRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, ExpenseDTO>(true, newExpense.ToExpenseDTO()));
+            return Ok(new StandardResponse<ExpenseDTO>(newExpense.ToExpenseDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -41,10 +42,10 @@ namespace PersonFinance.API.Controllers
             {
                 _expenseRepository.Remove(expense);
                 await _expenseRepository.SaveChangesAsync();
-                return Ok(true);
+                return Ok(new StandardResponse<bool>(true));
             }
 
-            return Ok(false);
+            return Ok(new StandardResponse<bool>(false));
         }
 
         [HttpPut("Update")]
@@ -55,9 +56,9 @@ namespace PersonFinance.API.Controllers
             {
                 _expenseRepository.Update(expense.ToExpense());
                 await _expenseRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, ExpenseDTO>(true, expense));
+                return Ok(new StandardResponse<ExpenseDTO>(expense));
             }
-            return Ok(new Tuple<bool, ExpenseDTO>(false, expense));
+            return Ok(new StandardResponse<ExpenseDTO>(expense, ServiceCode.ErrorUpdate));
         }
     }
 }
