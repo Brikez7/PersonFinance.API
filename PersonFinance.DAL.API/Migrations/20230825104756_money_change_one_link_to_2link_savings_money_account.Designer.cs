@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonFinance.API.DAL;
@@ -11,9 +12,11 @@ using PersonFinance.API.DAL;
 namespace PersonFinance.API.DAL.Migrations
 {
     [DbContext(typeof(PersonFinanceContext))]
-    partial class PersonFinanceContextModelSnapshot : ModelSnapshot
+    [Migration("20230825104756_money_change_one_link_to_2link_savings_money_account")]
+    partial class money_change_one_link_to_2link_savings_money_account
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

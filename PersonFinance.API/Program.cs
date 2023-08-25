@@ -11,7 +11,7 @@ namespace PersonFinance.API
             builder.AddRepositores();
             builder.AddHostedServices();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

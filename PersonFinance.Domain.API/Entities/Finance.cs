@@ -5,19 +5,23 @@ namespace PersonFinance.API.Domain.Entities
     public class Finance
     {
         public Guid Id { get; set; }
-        public Guid PersonId { get; set; }
-        public Money Money { get; set; }
-        private Finance() { }
-        public Finance(Guid personId, Money money)
+        public Guid? MoneyAccountId { get; set; } = null;
+        public Guid? SavingsId { get; set; } = null;
+        public Money Money { get; set; } = null!;
+        public Finance() { }
+
+        public Finance(Guid? accountId, Guid? savingsId, Money money)
         {
-            PersonId = personId;
+            MoneyAccountId = accountId;
+            SavingsId = savingsId;
             Money = money;
         }
 
-        public Finance(Guid id, Guid personId, Money money)
+        public Finance(Guid id, Guid? accountId, Guid? savingsId, Money money)
         {
             Id = id;
-            PersonId = personId;
+            MoneyAccountId = accountId;
+            SavingsId = savingsId;
             Money = money;
         }
 
