@@ -14,7 +14,10 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Number)
+            builder.Property(e => e.PersonId)
+                   .HasColumnType(EntityDataTypes.Guid);
+            
+            builder.Property(e => e.NumberBank)
                    .HasColumnType(EntityDataTypes.Character_varying);
 
             builder.Property(e => e.Bank)
@@ -22,6 +25,12 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.Property(e => e.TypeAccount)
                    .HasColumnType(EntityDataTypes.SmallInt);
+
+            builder.HasOne(e => e.Person)
+                   .WithMany(e => e.MoneyAccounts)
+                   .HasPrincipalKey(e => e.Id)
+                   .HasForeignKey(e => e.PersonId)
+                   .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

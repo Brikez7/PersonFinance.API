@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PersonFinance.API.DAL.ConfigurationEntities.Exstentionses;
 using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities;
 
@@ -17,17 +18,16 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.Id)
                    .HasColumnType(EntityDataTypes.Guid);
 
-            builder.Property(e => e.Person)
+            builder.Property(e => e.PersonId)
+                   .HasColumnType(EntityDataTypes.Guid);
+
+            builder.Property(e => e.OtherPerson)
                    .HasColumnType(EntityDataTypes.Character_varying);
 
             builder.Property(e => e.InterestRate)
                    .HasColumnType(EntityDataTypes.Decimal);
 
-            builder.Property(e => e.MoneyCredit.Amount)
-                   .HasColumnType(EntityDataTypes.Decimal);
-
-            builder.Property(e => e.MoneyCredit.Corrency)
-                   .HasColumnType(EntityDataTypes.SmallInt);
+            builder.OwnsOneMoney(e => e.MoneyCredit);
 
             builder.Property(e => e.Returned)
                    .HasColumnType(EntityDataTypes.Bool);
@@ -35,14 +35,16 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.ReturnedDate)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);
 
-            builder.Property(e => e.ReturnedMoney.Amount)
-                   .HasColumnType(EntityDataTypes.Decimal);
-
-            builder.Property(e => e.ReturnedMoney.Corrency)
-                   .HasColumnType(EntityDataTypes.SmallInt);
+            builder.OwnsOneMoney(e => e.ReturnedMoney);
 
             builder.Property(e => e.TypeContract)
                    .HasColumnType(EntityDataTypes.SmallInt);
+
+            builder.HasOne(e => e.Person)
+                   .WithMany(e => e.Contracts)
+                   .HasPrincipalKey(e => e.Id)
+                   .HasForeignKey(e => e.PersonId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

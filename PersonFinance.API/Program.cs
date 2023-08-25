@@ -1,4 +1,3 @@
-
 namespace PersonFinance.API
 {
     public class Program
@@ -7,7 +6,11 @@ namespace PersonFinance.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.AddPostgresDB();
+            builder.AddRepositores();
+            builder.AddHostedServices();
+
+            builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

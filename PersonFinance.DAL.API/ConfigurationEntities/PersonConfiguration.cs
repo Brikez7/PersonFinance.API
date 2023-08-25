@@ -5,14 +5,14 @@ using PersonFinance.API.Domain.Entities;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
-    internal class SavingsConfiguration : IEntityTypeConfiguration<Savings>
+    internal class PersonConfiguration : IEntityTypeConfiguration<Person>
     {
-        public const string Table_name = "savings_persons";
-        public void Configure(EntityTypeBuilder<Savings> builder)
+        public const string Table_name = "persons";
+        public void Configure(EntityTypeBuilder<Person> builder)
         {
             builder.ToTable(Table_name);
 
-            builder.HasKey(e => e.Id);
+            builder.HasKey(t => t.Id);
 
             builder.Property(e => e.Id)
                    .HasColumnType(EntityDataTypes.Guid);
