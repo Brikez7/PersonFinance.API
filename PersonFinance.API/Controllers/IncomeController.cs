@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.BLL.Mappers;
 
 namespace PersonFinance.API.Controllers
 {
@@ -23,11 +24,11 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] Income income)
+        public async Task<IActionResult> Add([FromBody] RequestNewIncome income)
         {
-            var newIncome = await _incomeRepository.AddAsync(income);
+            var newIncome = await _incomeRepository.AddAsync(income.ToIncome());
             await _incomeRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, Income?>(true, newIncome));
+            return Ok(new Tuple<bool, IncomeDTO>(true, newIncome.ToIncomeDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -45,16 +46,16 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Put([FromBody] Income income)
+        public async Task<IActionResult> Put([FromBody] IncomeDTO income)
         {
             var finedIncome = await _incomeRepository.Get().AnyAsync(x => x.Id == income.Id);
             if (finedIncome)
             {
-                _incomeRepository.Update(income);
+                _incomeRepository.Update(income.ToIncome());
                 await _incomeRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, Income?>(true, income));
+                return Ok(new Tuple<bool, IncomeDTO>(true, income));
             }
-            return Ok(new Tuple<bool, Income?>(false, income));
+            return Ok(new Tuple<bool, IncomeDTO>(false, income));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace PersonFinance.API.Domain.Entities
             PersonId = personId;
         }
 
-        public Expense(Guid id, string category, string subCategory, DateTimeOffset expenditureDate, Money moneySpent, string purposeSpending, Guid personId    )
+        public Expense(Guid id, string category, string subCategory, DateTimeOffset expenditureDate, Money moneySpent, string purposeSpending, Guid personId)
         {
             Id = id;
             Category = category;
@@ -34,6 +34,6 @@ namespace PersonFinance.API.Domain.Entities
             PurposeSpending = purposeSpending;
             PersonId = personId;
         }
-        public virtual Person? Person { get; set; }
+        public virtual Person Person { get; set; } = null!;
     }
 }

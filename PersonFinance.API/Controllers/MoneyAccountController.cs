@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
 
@@ -20,16 +21,16 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var moneyAccounts = await _moneyAccountRepository.Get().ToArrayAsync();
+            var moneyAccounts = await _moneyAccountRepository.Get().Select(x => x.ToMoneyAccountDTO()).ToArrayAsync();
             return Ok(moneyAccounts);
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] MoneyAccount moneyAccount)
+        public async Task<IActionResult> Add([FromBody] RequestNewMoneyAccount moneyAccount)
         {
-            var newMoneyAccount = await _moneyAccountRepository.AddAsync(moneyAccount);
+            var newMoneyAccount = await _moneyAccountRepository.AddAsync(moneyAccount.ToMoneyAccount());
             await _moneyAccountRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, MoneyAccount?>(true, newMoneyAccount));
+            return Ok(new Tuple<bool, MoneyAccountDTO>(true, newMoneyAccount.ToMoneyAccountDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -47,16 +48,16 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Put([FromBody] MoneyAccount moneyAccount)
+        public async Task<IActionResult> Put([FromBody] MoneyAccountDTO moneyAccount)
         {
             var finedMoneyAccount = await _moneyAccountRepository.Get().AnyAsync(x => x.Id == moneyAccount.Id);
             if (finedMoneyAccount)
             {
-                _moneyAccountRepository.Update(moneyAccount);
+                _moneyAccountRepository.Update(moneyAccount.ToMoneyAccount());
                 await _moneyAccountRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, MoneyAccount?>(true, moneyAccount));
+                return Ok(new Tuple<bool, MoneyAccountDTO>(true, moneyAccount));
             }
-            return Ok(new Tuple<bool, MoneyAccount?>(false, moneyAccount));
+            return Ok(new Tuple<bool, MoneyAccountDTO>(false, moneyAccount));
         }
     }
 }

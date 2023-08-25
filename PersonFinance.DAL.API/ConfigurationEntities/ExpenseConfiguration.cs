@@ -34,6 +34,12 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.Property(e => e.PurposeSpending)
                    .HasColumnType(EntityDataTypes.Character_varying);
+
+            builder.HasOne(e => e.Person)
+                   .WithMany(e => e.Expenses)
+                   .HasPrincipalKey(e => e.Id)
+                   .HasForeignKey(e => e.PersonId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

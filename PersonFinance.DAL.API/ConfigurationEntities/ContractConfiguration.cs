@@ -39,6 +39,12 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.Property(e => e.TypeContract)
                    .HasColumnType(EntityDataTypes.SmallInt);
+
+            builder.HasOne(e => e.Person)
+                   .WithMany(e => e.Contracts)
+                   .HasPrincipalKey(e => e.Id)
+                   .HasForeignKey(e => e.PersonId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

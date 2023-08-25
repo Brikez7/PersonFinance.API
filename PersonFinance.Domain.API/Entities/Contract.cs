@@ -16,21 +16,22 @@ namespace PersonFinance.API.Domain.Entities
         public TypeContract TypeContract { get; set; }
 
         private Contract() { }
-        public Contract(string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, TypeContract typeContract, Guid personId)
+
+        public Contract(Guid personId, string otherPerson, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, TypeContract typeContract)
         {
-            OtherPerson = person;
+            PersonId = personId;
+            OtherPerson = otherPerson;
             ReceiptDate = receiptDate;
             InterestRate = interestRate;
             MoneyCredit = moneyCredit;
-            Returned = returned;
             TypeContract = typeContract;
-            PersonId = personId;
         }
 
-        public Contract(Guid id, string person, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, DateTimeOffset returnedDate, Money returnedMoney, TypeContract typeContract, Guid personId)
+        public Contract(Guid id, Guid personId, string otherPerson, DateTimeOffset receiptDate, decimal interestRate, Money moneyCredit, bool returned, DateTimeOffset? returnedDate, Money? returnedMoney, TypeContract typeContract)
         {
             Id = id;
-            OtherPerson = person;
+            PersonId = personId;
+            OtherPerson = otherPerson;
             ReceiptDate = receiptDate;
             InterestRate = interestRate;
             MoneyCredit = moneyCredit;
@@ -38,9 +39,9 @@ namespace PersonFinance.API.Domain.Entities
             ReturnedDate = returnedDate;
             ReturnedMoney = returnedMoney;
             TypeContract = typeContract;
-            PersonId = personId;
         }
-        public virtual Person? Person { get; set; }
+
+        public virtual Person Person { get; set; } = null!;
     }
     public enum TypeContract
     {

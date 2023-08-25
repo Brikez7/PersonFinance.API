@@ -2,11 +2,11 @@
 {
     public class RequestNewPerson
     {
-        public Guid SavingsId { get; set; }
+        public Guid PersonId { get; set; }
         public string Name { get; set; }
-        public RequestNewPerson(Guid savingsId, string name)
+        public RequestNewPerson(Guid personId, string name)
         {
-            SavingsId = savingsId;
+            PersonId = personId;
             Name = name;
         }
     }

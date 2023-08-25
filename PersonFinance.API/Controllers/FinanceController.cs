@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
 
@@ -20,17 +21,18 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var finances = await _financeRepository.Get().ToArrayAsync();
+            var finances = await _financeRepository.Get().Select(x => x.ToFinanceDTO()).ToArrayAsync();
             return Ok(finances);
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] Finance finance)
+        public async Task<IActionResult> Add([FromBody] RequestNewFinance finance)
         {
-            var newFinance = await _financeRepository.AddAsync(finance);
+            var newFinance = await _financeRepository.AddAsync(finance.ToFinance());
             await _financeRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, Finance?>(true, newFinance));
+            return Ok(new Tuple<bool, FinanceDTO>(true, newFinance.ToFinanceDTO()));
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
@@ -46,17 +48,16 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Put([FromBody] Finance finance)
+        public async Task<IActionResult> Put([FromBody] FinanceDTO finance)
         {
             var finedFinance = await _financeRepository.Get().AnyAsync(x => x.Id == finance.Id);
             if (finedFinance)
             {
-                _financeRepository.Update(finance);
+                var updatedFinance = _financeRepository.Update(finance.ToFinance());
                 await _financeRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, Finance?>(true, finance));
+                return Ok(new Tuple<bool, FinanceDTO>(true, finance));
             }
-            return Ok(new Tuple<bool, Finance?>(false, finance));
+            return Ok(new Tuple<bool, FinanceDTO>(false, finance));
         }
     }
 }
-

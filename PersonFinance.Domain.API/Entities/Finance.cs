@@ -6,14 +6,14 @@ namespace PersonFinance.API.Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid? MoneyAccountId { get; set; } = null;
-        public Guid? SavingsId { get; set; } = null;
+        public Guid? PersonId { get; set; } = null;
         public Money Money { get; set; } = null!;
         public Finance() { }
 
         public Finance(Guid? accountId, Guid? savingsId, Money money)
         {
             MoneyAccountId = accountId;
-            SavingsId = savingsId;
+            PersonId = savingsId;
             Money = money;
         }
 
@@ -21,11 +21,11 @@ namespace PersonFinance.API.Domain.Entities
         {
             Id = id;
             MoneyAccountId = accountId;
-            SavingsId = savingsId;
+            PersonId = savingsId;
             Money = money;
         }
 
         public virtual MoneyAccount? MoneyAccount { get; set; }
-        public virtual Savings? Savings { get; set; }
+        public virtual Person? Person { get; set; }
     }
 }

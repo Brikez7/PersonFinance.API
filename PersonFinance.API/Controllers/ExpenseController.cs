@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
 
@@ -20,16 +21,16 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var expenses = await _expenseRepository.Get().ToArrayAsync();
+            var expenses = await _expenseRepository.Get().Select(x => x.ToExpenseDTO()).ToArrayAsync();
             return Ok(expenses);
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] Expense expense)
+        public async Task<IActionResult> Add([FromBody] RequestNewExpense expense)
         {
-            var newExpense = await _expenseRepository.AddAsync(expense);
+            var newExpense = await _expenseRepository.AddAsync(expense.ToExpense());
             await _expenseRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, Expense?>(true, newExpense));
+            return Ok(new Tuple<bool, ExpenseDTO>(true, newExpense.ToExpenseDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -47,16 +48,16 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Put([FromBody] Expense expense)
+        public async Task<IActionResult> Put([FromBody] ExpenseDTO expense)
         {
             var finedExpense = await _expenseRepository.Get().AnyAsync(x => x.Id == expense.Id);
             if (finedExpense)
             {
-                _expenseRepository.Update(expense);
+                _expenseRepository.Update(expense.ToExpense());
                 await _expenseRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, Expense?>(true, expense));
+                return Ok(new Tuple<bool, ExpenseDTO>(true, expense));
             }
-            return Ok(new Tuple<bool, Expense?>(false, expense));
+            return Ok(new Tuple<bool, ExpenseDTO>(false, expense));
         }
     }
 }

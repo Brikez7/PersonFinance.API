@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
 
@@ -20,16 +21,16 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var contracts = await _contractRepository.Get().ToArrayAsync();
+            var contracts = await _contractRepository.Get().Select(x => x.ToContractDTO()).ToArrayAsync();
             return Ok(contracts);
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] Contract contract)
+        public async Task<IActionResult> Add([FromBody] RequestNewContract contract)
         {
-            var newContract = await _contractRepository.AddAsync(contract);
+            var newContract = await _contractRepository.AddAsync(contract.ToContract());
             await _contractRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, Contract?>(true, newContract));
+            return Ok(new Tuple<bool, ContractDTO>(true, newContract.ToContractDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -47,16 +48,16 @@ namespace PersonFinance.API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Put([FromBody] Contract Contract)
+        public async Task<IActionResult> Put([FromBody] ContractDTO Contract)
         {
             var finedContract = await _contractRepository.Get().AnyAsync(x => x.Id == Contract.Id);
             if (finedContract)
             {
-                _contractRepository.Update(Contract);
+                _contractRepository.Update(Contract.ToContract());
                 await _contractRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, Contract?>(true, Contract));
+                return Ok(new Tuple<bool, ContractDTO>(true, Contract));
             }
-            return Ok(new Tuple<bool, Contract?>(false, Contract));
+            return Ok(new Tuple<bool, ContractDTO>(false, Contract));
         }
     }
 }

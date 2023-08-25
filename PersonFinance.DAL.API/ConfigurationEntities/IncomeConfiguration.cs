@@ -28,6 +28,12 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.Property(e => e.TypeActivity)
                    .HasColumnType(EntityDataTypes.Character_varying);
+
+            builder.HasOne(e => e.Person)
+                   .WithMany(e => e.Incomes)
+                   .HasPrincipalKey(e => e.Id)
+                   .HasForeignKey(e => e.PersonId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

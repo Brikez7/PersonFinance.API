@@ -9,7 +9,7 @@ namespace PersonFinance.API.Domain.Entities
         public Money MoneyReceived { get; set; }
         public DateTimeOffset ReceiptDate { get; set; }
         public string TypeActivity { get; set; }
-        public Income() { }
+        private Income() { }
         public Income(Money moneyReceived, DateTimeOffset receiptDate, string typeActivity, Guid personId)
         {
             MoneyReceived = moneyReceived;
@@ -27,6 +27,6 @@ namespace PersonFinance.API.Domain.Entities
             PersonId = personId;
         }
 
-        public virtual Person? Person { get; set; }
+        public virtual Person Person { get; set; } = null!;
     }
 }

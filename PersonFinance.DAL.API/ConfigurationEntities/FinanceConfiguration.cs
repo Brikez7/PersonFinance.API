@@ -18,7 +18,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
             builder.Property(e => e.Id)
                    .HasColumnType(EntityDataTypes.Guid);
         
-            builder.Property(e => e.SavingsId) 
+            builder.Property(e => e.PersonId) 
                    .HasColumnType(EntityDataTypes.Guid);
 
             builder.Property(e => e.MoneyAccountId)
@@ -26,10 +26,10 @@ namespace PersonFinance.API.DAL.ConfigurationEntities
 
             builder.OwnsOneMoney(e => e.Money);
 
-            builder.HasOne(e => e.Savings)
+            builder.HasOne(e => e.Person)
                    .WithMany(e => e.Finances)
                    .HasPrincipalKey(e => e.Id)
-                   .HasForeignKey(e => e.SavingsId)
+                   .HasForeignKey(e => e.PersonId)
                    .IsRequired(false)
                    .OnDelete(DeleteBehavior.Cascade);
 

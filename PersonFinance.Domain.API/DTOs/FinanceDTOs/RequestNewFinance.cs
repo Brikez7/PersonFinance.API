@@ -5,13 +5,13 @@ namespace PersonFinance.API.Domain.Entities
     public class RequestNewFinance
     {
         public Guid? MoneyAccountId { get; set; } = null;
-        public Guid? SavingsId { get; set; } = null;
+        public Guid? PersonId { get; set; } = null;
         public Money Money { get; set; } = null!;
 
-        public RequestNewFinance(Guid? moneyAccountId, Guid? savingsId, Money money)
+        public RequestNewFinance(Guid? moneyAccountId, Guid? personId, Money money)
         {
             MoneyAccountId = moneyAccountId;
-            SavingsId = savingsId;
+            PersonId = personId;
             Money = money;
         }
     }

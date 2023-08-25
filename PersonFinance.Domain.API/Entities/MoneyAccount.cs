@@ -3,29 +3,29 @@
     public class MoneyAccount
     {
         public Guid Id { get; set; }
-        public Guid SavingsId { get; set; }
+        public Guid PersonId { get; set; }
         public string NumberBank { get; set; }
         public string Bank { get; set; }
         public TypeAccount TypeAccount { get; set; }
-        public MoneyAccount() { }
-        public MoneyAccount(string number, string bank, TypeAccount typeAccount, Guid savingsId)
+        private MoneyAccount() { }
+        public MoneyAccount(string number, string bank, TypeAccount typeAccount, Guid personId)
         {
             NumberBank = number;
             Bank = bank;
             TypeAccount = typeAccount;
-            SavingsId = savingsId;
+            PersonId = personId;
         }
 
-        public MoneyAccount(Guid id, string number, string bank, TypeAccount typeAccount, Guid savingsId)
+        public MoneyAccount(Guid id, string number, string bank, TypeAccount typeAccount, Guid personId)
         {
             Id = id;
             NumberBank = number;
             Bank = bank;
             TypeAccount = typeAccount;
-            SavingsId = savingsId;
+            PersonId = personId;
         }
-        public virtual List<Finance>? Finances { get; set; } = new List<Finance>();
-        public virtual Savings? Savings { get; set; }
+        public virtual List<Finance> Finances { get; set; } = new List<Finance>();
+        public virtual Person Person { get; set; } = null!;
     }
     public enum TypeAccount 
     {

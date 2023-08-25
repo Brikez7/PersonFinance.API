@@ -6,14 +6,14 @@ namespace PersonFinance.API.Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid? MoneyAccountId { get; set; } = null;
-        public Guid? SavingsId { get; set; } = null;
+        public Guid? PersonId { get; set; } = null;
         public Money Money { get; set; } = null!;
 
-        public FinanceDTO(Guid id, Guid? moneyAccountId, Guid? savingsId, Money money)
+        public FinanceDTO(Guid id, Guid? moneyAccountId, Guid? personId, Money money)
         {
             Id = id;
             MoneyAccountId = moneyAccountId;
-            SavingsId = savingsId;
+            PersonId = personId;
             Money = money;
         }
     }

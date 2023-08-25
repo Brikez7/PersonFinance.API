@@ -3,13 +3,15 @@
     public class PersonDTO
     {
         public Guid Id { get; set; }
-        public Guid SavingsId { get; set; }
         public string Name { get; set; }
-        public PersonDTO(Guid id, Guid savingsId, string name)
+        public PersonDTO(Guid id, string name)
         {
             Id = id;
-            SavingsId = savingsId;
             Name = name;
+        }
+
+        public PersonDTO(Person x)
+        {
         }
     }
 }
