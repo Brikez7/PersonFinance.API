@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace PersonFinance.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var contracts = await _contractRepository.Get().Select(x => x.ToContractDTO()).ToArrayAsync();
-            return Ok(contracts);
+            return Ok(new StandardResponse<ContractDTO[]>(contracts));
         }
 
         [HttpPost("Add")]
@@ -30,7 +31,7 @@ namespace PersonFinance.API.Controllers
         {
             var newContract = await _contractRepository.AddAsync(contract.ToContract());
             await _contractRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, ContractDTO>(true, newContract.ToContractDTO()));
+            return Ok(new StandardResponse<ContractDTO>(newContract.ToContractDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -41,10 +42,10 @@ namespace PersonFinance.API.Controllers
             {
                 _contractRepository.Remove(contract);
                 await _contractRepository.SaveChangesAsync();
-                return Ok(true);
+                return Ok(new StandardResponse<bool>(true));
             }
 
-            return Ok(false);
+            return Ok(new StandardResponse<bool>(false,ServiceCode.ErrorDelete));
         }
 
         [HttpPut("Update")]
@@ -55,9 +56,9 @@ namespace PersonFinance.API.Controllers
             {
                 _contractRepository.Update(Contract.ToContract());
                 await _contractRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, ContractDTO>(true, Contract));
+                return Ok(new StandardResponse<ContractDTO>(Contract));
             }
-            return Ok(new Tuple<bool, ContractDTO>(false, Contract));
+            return Ok(new StandardResponse<ContractDTO>(Contract, ServiceCode.ErrorUpdate));
         }
     }
 }

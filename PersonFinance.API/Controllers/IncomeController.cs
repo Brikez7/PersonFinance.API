@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
 using PersonFinance.API.BLL.Mappers;
+using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
@@ -19,8 +20,8 @@ namespace PersonFinance.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var incomes = await _incomeRepository.Get().ToArrayAsync();
-            return Ok(incomes);
+            var incomes = await _incomeRepository.Get().Select(x => x.ToIncomeDTO()).ToArrayAsync();
+            return Ok(new StandardResponse<IncomeDTO[]>(incomes));
         }
 
         [HttpPost("Add")]
@@ -28,7 +29,7 @@ namespace PersonFinance.API.Controllers
         {
             var newIncome = await _incomeRepository.AddAsync(income.ToIncome());
             await _incomeRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, IncomeDTO>(true, newIncome.ToIncomeDTO()));
+            return Ok(new StandardResponse<IncomeDTO>(newIncome.ToIncomeDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -39,10 +40,10 @@ namespace PersonFinance.API.Controllers
             {
                 _incomeRepository.Remove(deletedIncome);
                 await _incomeRepository.SaveChangesAsync();
-                return Ok(true);
+                return Ok(new StandardResponse<bool>(true));
             }
 
-            return Ok(false);
+            return Ok(new StandardResponse<bool>(false, ServiceCode.ErrorDelete));
         }
 
         [HttpPut("Update")]
@@ -53,9 +54,9 @@ namespace PersonFinance.API.Controllers
             {
                 _incomeRepository.Update(income.ToIncome());
                 await _incomeRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, IncomeDTO>(true, income));
+                return Ok(new StandardResponse<IncomeDTO>(income));
             }
-            return Ok(new Tuple<bool, IncomeDTO>(false, income));
+            return Ok(new StandardResponse<IncomeDTO>(income, ServiceCode.ErrorUpdate));
         }
     }
 }

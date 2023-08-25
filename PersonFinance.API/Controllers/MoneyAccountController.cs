@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonFinance.API.BLL.Mappers;
 using PersonFinance.API.DAL.Repositories;
 using PersonFinance.API.Domain.Entities;
+using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace PersonFinance.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var moneyAccounts = await _moneyAccountRepository.Get().Select(x => x.ToMoneyAccountDTO()).ToArrayAsync();
-            return Ok(moneyAccounts);
+            return Ok(new StandardResponse<MoneyAccountDTO[]>(moneyAccounts));
         }
 
         [HttpPost("Add")]
@@ -30,7 +31,7 @@ namespace PersonFinance.API.Controllers
         {
             var newMoneyAccount = await _moneyAccountRepository.AddAsync(moneyAccount.ToMoneyAccount());
             await _moneyAccountRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, MoneyAccountDTO>(true, newMoneyAccount.ToMoneyAccountDTO()));
+            return Ok(new StandardResponse<MoneyAccountDTO>(newMoneyAccount.ToMoneyAccountDTO()));
         }
 
         [HttpDelete("Delete/{id}")]
@@ -41,10 +42,10 @@ namespace PersonFinance.API.Controllers
             {
                 _moneyAccountRepository.Remove(deletedMoneyAccount);
                 await _moneyAccountRepository.SaveChangesAsync();
-                return Ok(true);
+                return Ok(new StandardResponse<bool>(true));
             }
 
-            return Ok(false);
+            return Ok(new StandardResponse<bool>(false, ServiceCode.ErrorDelete));
         }
 
         [HttpPut("Update")]
@@ -55,9 +56,9 @@ namespace PersonFinance.API.Controllers
             {
                 _moneyAccountRepository.Update(moneyAccount.ToMoneyAccount());
                 await _moneyAccountRepository.SaveChangesAsync();
-                return Ok(new Tuple<bool, MoneyAccountDTO>(true, moneyAccount));
+                return Ok(new StandardResponse<MoneyAccountDTO>(moneyAccount));
             }
-            return Ok(new Tuple<bool, MoneyAccountDTO>(false, moneyAccount));
+            return Ok(new StandardResponse<MoneyAccountDTO>(moneyAccount, ServiceCode.ErrorUpdate));
         }
     }
 }
