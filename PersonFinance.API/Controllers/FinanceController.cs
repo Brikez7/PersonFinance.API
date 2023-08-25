@@ -11,9 +11,9 @@ namespace PersonFinance.API.Controllers
     {
         private readonly IGenericRepository<Finance> _financeRepository;
         private readonly ILogger<FinanceController> _logger;
-        public FinanceController(IGenericRepository<Finance> moneyAccountRepository, ILogger<FinanceController> logger)
+        public FinanceController(IGenericRepository<Finance> financeRepository, ILogger<FinanceController> logger)
         {
-            _financeRepository = moneyAccountRepository;
+            _financeRepository = financeRepository;
             _logger = logger;
         }
 
@@ -34,10 +34,10 @@ namespace PersonFinance.API.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var finance = await _financeRepository.Get().FirstOrDefaultAsync(x => x.Id == id);
-            if (finance is not null)
+            var deletedFinance = await _financeRepository.Get().FirstOrDefaultAsync(x => x.Id == id);
+            if (deletedFinance is not null)
             {
-                _financeRepository.Remove(finance);
+                _financeRepository.Remove(deletedFinance);
                 await _financeRepository.SaveChangesAsync();
                 return Ok(true);
             }

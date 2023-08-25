@@ -11,9 +11,9 @@ namespace PersonFinance.API.Controllers
     {
         private readonly IGenericRepository<Contract> _contractRepository;
         private readonly ILogger<ContractController> _logger;
-        public ContractController(IGenericRepository<Contract> moneyAccountRepository, ILogger<ContractController> logger)
+        public ContractController(IGenericRepository<Contract> contractRepository, ILogger<ContractController> logger)
         {
-            _contractRepository = moneyAccountRepository;
+            _contractRepository = contractRepository;
             _logger = logger;
         }
 
@@ -31,6 +31,7 @@ namespace PersonFinance.API.Controllers
             await _contractRepository.SaveChangesAsync();
             return Ok(new Tuple<bool, Contract?>(true, newContract));
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {

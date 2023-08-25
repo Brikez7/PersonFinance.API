@@ -31,13 +31,14 @@ namespace PersonFinance.API.Controllers
             await _moneyAccountRepository.SaveChangesAsync();
             return Ok(new Tuple<bool, MoneyAccount?>(true, newMoneyAccount));
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var moneyAccount = await _moneyAccountRepository.Get().FirstOrDefaultAsync(x => x.Id == id);
-            if (moneyAccount is not null)
+            var deletedMoneyAccount = await _moneyAccountRepository.Get().FirstOrDefaultAsync(x => x.Id == id);
+            if (deletedMoneyAccount is not null)
             {
-                _moneyAccountRepository.Remove(moneyAccount);
+                _moneyAccountRepository.Remove(deletedMoneyAccount);
                 await _moneyAccountRepository.SaveChangesAsync();
                 return Ok(true);
             }

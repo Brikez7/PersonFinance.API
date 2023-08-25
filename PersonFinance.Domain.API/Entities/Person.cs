@@ -1,4 +1,6 @@
-﻿namespace PersonFinance.API.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace PersonFinance.API.Domain.Entities
 {
     public class Person
     {
@@ -15,7 +17,6 @@
             Id = id;
             Name = name;
         }
-
         public virtual Savings? Savings { get; set; }
         public virtual List<Contract> Contracts { get; set; } = new List<Contract>();
         public virtual List<Expense> Expenses { get; set; } = new List<Expense>();

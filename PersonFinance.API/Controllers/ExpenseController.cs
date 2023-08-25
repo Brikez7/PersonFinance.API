@@ -11,9 +11,9 @@ namespace PersonFinance.API.Controllers
     {
         private readonly IGenericRepository<Expense> _expenseRepository;
         private readonly ILogger<ExpenseController> _logger;
-        public ExpenseController(IGenericRepository<Expense> moneyAccountRepository, ILogger<ExpenseController> logger)
+        public ExpenseController(IGenericRepository<Expense> expenseRepository, ILogger<ExpenseController> logger)
         {
-            _expenseRepository = moneyAccountRepository;
+            _expenseRepository = expenseRepository;
             _logger = logger;
         }
 
@@ -31,6 +31,7 @@ namespace PersonFinance.API.Controllers
             await _expenseRepository.SaveChangesAsync();
             return Ok(new Tuple<bool, Expense?>(true, newExpense));
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {

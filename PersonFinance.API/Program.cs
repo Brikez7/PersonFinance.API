@@ -1,4 +1,3 @@
-
 namespace PersonFinance.API
 {
     public class Program

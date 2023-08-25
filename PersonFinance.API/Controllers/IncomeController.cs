@@ -7,36 +7,37 @@ namespace PersonFinance.API.Controllers
 {
     public class IncomeController : ControllerBase
     {
-        private readonly IGenericRepository<Income> _IncomeRepository;
+        private readonly IGenericRepository<Income> _incomeRepository;
         private readonly ILogger<IncomeController> _logger;
-        public IncomeController(IGenericRepository<Income> moneyAccountRepository, ILogger<IncomeController> logger)
+        public IncomeController(IGenericRepository<Income> incomeRepository, ILogger<IncomeController> logger)
         {
-            _IncomeRepository = moneyAccountRepository;
+            _incomeRepository = incomeRepository;
             _logger = logger;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var incomes = await _IncomeRepository.Get().ToArrayAsync();
+            var incomes = await _incomeRepository.Get().ToArrayAsync();
             return Ok(incomes);
         }
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] Income income)
         {
-            var newIncomes = await _IncomeRepository.AddAsync(income);
-            await _IncomeRepository.SaveChangesAsync();
-            return Ok(new Tuple<bool, Income?>(true, newIncomes));
+            var newIncome = await _incomeRepository.AddAsync(income);
+            await _incomeRepository.SaveChangesAsync();
+            return Ok(new Tuple<bool, Income?>(true, newIncome));
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var Income = await _IncomeRepository.Get().FirstOrDefaultAsync(x => x.Id == id);
-            if (Income is not null)
+            var deletedIncome = await _incomeRepository.Get().FirstOrDefaultAsync(x => x.Id == id);
+            if (deletedIncome is not null)
             {
-                _IncomeRepository.Remove(Income);
-                await _IncomeRepository.SaveChangesAsync();
+                _incomeRepository.Remove(deletedIncome);
+                await _incomeRepository.SaveChangesAsync();
                 return Ok(true);
             }
 
@@ -46,11 +47,11 @@ namespace PersonFinance.API.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> Put([FromBody] Income income)
         {
-            var finedIncome = await _IncomeRepository.Get().AnyAsync(x => x.Id == income.Id);
+            var finedIncome = await _incomeRepository.Get().AnyAsync(x => x.Id == income.Id);
             if (finedIncome)
             {
-                _IncomeRepository.Update(income);
-                await _IncomeRepository.SaveChangesAsync();
+                _incomeRepository.Update(income);
+                await _incomeRepository.SaveChangesAsync();
                 return Ok(new Tuple<bool, Income?>(true, income));
             }
             return Ok(new Tuple<bool, Income?>(false, income));

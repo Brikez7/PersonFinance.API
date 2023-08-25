@@ -16,6 +16,7 @@ namespace PersonFinance.API
             webApplicationBuilder.Services.AddScoped<IGenericRepository<Income>, GenericRepository<Income>>();
             webApplicationBuilder.Services.AddScoped<IGenericRepository<MoneyAccount>, GenericRepository<MoneyAccount>>();
             webApplicationBuilder.Services.AddScoped<IGenericRepository<Savings>, GenericRepository<Savings>>();
+            webApplicationBuilder.Services.AddScoped<IGenericRepository<Person>, GenericRepository<Person>>();
         }
         public static void AddPostgresDB(this WebApplicationBuilder webApplicationBuilder)
         {
