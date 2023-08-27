@@ -6,28 +6,28 @@ using PersonFinance.API.Domain.Entities;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
-    public class IncomeConfiguration : IEntityTypeConfiguration<Income>
+    internal class InvestAccountConfiguration : IEntityTypeConfiguration<InvestAccount>
     {
-        public const string Table_name = "incomes";
-        public void Configure(EntityTypeBuilder<Income> builder)
+        public const string Table_name = "invests_accounts";
+        public void Configure(EntityTypeBuilder<InvestAccount> builder)
         {
             builder.ToTable(Table_name);
 
-            builder.HasKey(t => t.Id);
-
-            builder.Property(e => e.Id)
-                   .HasColumnType(EntityDataTypes.Guid);
+            builder.HasKey(e => e.Id);
 
             builder.Property(e => e.UserName)
                    .HasColumnType(EntityDataTypes.Character_varying);
 
-            builder.OwnsOneMoney(e => e.MoneyReceived);
-
-            builder.Property(e => e.ReceiptDate)
+            builder.Property(e => e.DateStart)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);
 
-            builder.Property(e => e.TypeActivity)
-                   .HasColumnType(EntityDataTypes.Character_varying);
+            builder.Property(e => e.DateEnd)
+                   .HasColumnType(EntityDataTypes.DateTimeYtc);
+
+            builder.Property(e => e.InterestRate)
+                   .HasColumnType(EntityDataTypes.Decimal);
+
+            builder.OwnsOneMoney(e => e.Money);
         }
     }
 }

@@ -5,28 +5,27 @@ namespace PersonFinance.API.Domain.Entities
     public class Income
     {
         public Guid Id { get; set; }
-        public Guid PersonId { get; set; }
-        public Money MoneyReceived { get; set; }
+        public string UserName { get; set; } = null!;
+        public Money MoneyReceived { get; set; } = null!;
         public DateTimeOffset ReceiptDate { get; set; }
-        public string TypeActivity { get; set; }
+        public string TypeActivity { get; set; } = null!;
+
         private Income() { }
-        public Income(Money moneyReceived, DateTimeOffset receiptDate, string typeActivity, Guid personId)
+        public Income(Money moneyReceived, DateTimeOffset receiptDate, string typeActivity, string userName)
         {
             MoneyReceived = moneyReceived;
             ReceiptDate = receiptDate;
             TypeActivity = typeActivity;
-            PersonId = personId;
+            UserName = userName;
         }
 
-        public Income(Guid id, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity, Guid personId)
+        public Income(Guid id, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity, string userName)
         {
             Id = id;
             MoneyReceived = moneyReceived;
             ReceiptDate = receiptDate;
             TypeActivity = typeActivity;
-            PersonId = personId;
+            UserName = userName;
         }
-
-        public virtual Person Person { get; set; } = null!;
     }
 }

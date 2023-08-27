@@ -10,13 +10,11 @@ namespace PersonFinance.API.DAL
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Income> Incomes { get; set; }
-        public DbSet<MoneyAccount> MoneyAccounts { get; set; }
-        public DbSet<Finance> Finances { get; set; }    
-        public DbSet<Person> People { get; set; }
-        public PersonFinanceContext(DbContextOptions<PersonFinanceContext> options) : base(options)
-        {
-        }
+        public DbSet<InvestAccount> InvestAccounts { get; set; }
+        public DbSet<BankingAccount> BankingAccounts { get; set; }
+        public DbSet<Cash> Cashs { get; set; }    
 
+        public PersonFinanceContext(DbContextOptions<PersonFinanceContext> options) : base(options){ }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -6,34 +6,31 @@ using PersonFinance.API.Domain.Entities;
 
 namespace PersonFinance.API.DAL.ConfigurationEntities
 {
-    public class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
+    internal class BankingAccountConfiguration : IEntityTypeConfiguration<BankingAccount>
     {
-        public const string Table_name = "expenses";
-        public void Configure(EntityTypeBuilder<Expense> builder)
+        public const string Table_name = "banking_accounts";
+        public void Configure(EntityTypeBuilder<BankingAccount> builder)
         {
             builder.ToTable(Table_name);
 
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
-                   .HasColumnType(EntityDataTypes.Guid);
-
             builder.Property(e => e.UserName)
                    .HasColumnType(EntityDataTypes.Character_varying);
-
-            builder.Property(e => e.Category)
+            
+            builder.Property(e => e.BankName)
                    .HasColumnType(EntityDataTypes.Character_varying);
 
-            builder.Property(e => e.SubCategory)
-                   .HasColumnType(EntityDataTypes.Character_varying);
-
-            builder.Property(e => e.ExpenditureDate)
+            builder.Property(e => e.DateStart)
                    .HasColumnType(EntityDataTypes.DateTimeYtc);
 
-            builder.OwnsOneMoney(e => e.MoneySpent);
+            builder.Property(e => e.DateEnd)
+                   .HasColumnType(EntityDataTypes.DateTimeYtc);
 
-            builder.Property(e => e.PurposeSpending)
-                   .HasColumnType(EntityDataTypes.Character_varying);
+            builder.Property(e => e.InterestRate)
+                   .HasColumnType(EntityDataTypes.Decimal);
+
+            builder.OwnsOneMoney(e => e.Money);
         }
     }
 }

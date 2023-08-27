@@ -5,15 +5,15 @@ namespace PersonFinance.API.Domain.Entities
     public class IncomeDTO
     {
         public Guid Id { get; set; }
-        public Guid PersonId { get; set; }
-        public Money MoneyReceived { get; set; }
+        public string UserName { get; set; } = null!;
+        public Money MoneyReceived { get; set; } = null!;
         public DateTimeOffset ReceiptDate { get; set; }
-        public string TypeActivity { get; set; }
+        public string TypeActivity { get; set; } = null!;
 
-        public IncomeDTO(Guid id, Guid personId, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
+        public IncomeDTO(Guid id, string userName, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
         {
             Id = id;
-            PersonId = personId;
+            UserName = userName;
             MoneyReceived = moneyReceived;
             ReceiptDate = receiptDate;
             TypeActivity = typeActivity;

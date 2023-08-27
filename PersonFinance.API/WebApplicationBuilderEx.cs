@@ -6,16 +6,16 @@ using PersonFinance.API.HostedService;
 
 namespace PersonFinance.API
 {
-    public static class DIHelper
+    public static class WebApplicationBuilderEx
     {
         public static void AddRepositores(this WebApplicationBuilder webApplicationBuilder)
         {
             webApplicationBuilder.Services.AddScoped<IGenericRepository<Contract>, GenericRepository<Contract>>();
             webApplicationBuilder.Services.AddScoped<IGenericRepository<Expense>, GenericRepository<Expense>>();
-            webApplicationBuilder.Services.AddScoped<IGenericRepository<Finance>, GenericRepository<Finance>>();
+            webApplicationBuilder.Services.AddScoped<IGenericRepository<Cash>, GenericRepository<Cash>>();
             webApplicationBuilder.Services.AddScoped<IGenericRepository<Income>, GenericRepository<Income>>();
-            webApplicationBuilder.Services.AddScoped<IGenericRepository<MoneyAccount>, GenericRepository<MoneyAccount>>();
-            webApplicationBuilder.Services.AddScoped<IGenericRepository<Person>, GenericRepository<Person>>();
+            webApplicationBuilder.Services.AddScoped<IGenericRepository<InvestAccount>, GenericRepository<InvestAccount>>();
+            webApplicationBuilder.Services.AddScoped<IGenericRepository<BankingAccount>, GenericRepository<BankingAccount>>();
         }
         public static void AddPostgresDB(this WebApplicationBuilder webApplicationBuilder)
         {

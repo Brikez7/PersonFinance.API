@@ -4,14 +4,14 @@ namespace PersonFinance.API.Domain.Entities
 {
     public class RequestNewIncome
     {
-        public Guid PersonId { get; set; }
-        public Money MoneyReceived { get; set; }
+        public string UserName { get; set; } = null!;
+        public Money MoneyReceived { get; set; } = null!;
         public DateTimeOffset ReceiptDate { get; set; }
-        public string TypeActivity { get; set; }
+        public string TypeActivity { get; set; } = null!;
 
-        public RequestNewIncome(Guid personId, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
+        public RequestNewIncome(string userName, Money moneyReceived, DateTimeOffset receiptDate, string typeActivity)
         {
-            PersonId = personId;
+            UserName = userName;
             MoneyReceived = moneyReceived;
             ReceiptDate = receiptDate;
             TypeActivity = typeActivity;

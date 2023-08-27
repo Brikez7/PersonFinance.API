@@ -4,7 +4,7 @@ using PersonFinance.API.DAL.ConfigurationEntitiesDataType;
 using PersonFinance.API.Domain.Entities.structs;
 using System.Linq.Expressions;
 
-namespace PersonFinance.API.DAL.ConfigurationEntities.Exstentionses
+namespace PersonFinance.API.DAL.ConfigurationEntities.ConfigurationExtensions
 {
     public static class MoneyExtensions
     {
