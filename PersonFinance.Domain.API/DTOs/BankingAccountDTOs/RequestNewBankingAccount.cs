@@ -4,12 +4,12 @@ namespace PersonFinance.API.Domain.Entities
 {
     public class RequestNewBankingAccount
     {
-        public string UserName { get; set; } = null!;
-        public string BankName { get; set; } = null!;
+        public string UserName { get; set; }
+        public string BankName { get; set; } 
         public DateTimeOffset DateStart { get; set; }
         public DateTimeOffset DateEnd { get; set; }
         public decimal InterestRate { get; set; }
-        public Money Money { get; set; } = null!;
+        public Money Money { get; set; }
 
         public RequestNewBankingAccount(string userName, string bankName, DateTimeOffset dateStart, DateTimeOffset dateEnd, decimal interestRate, Money money)
         {

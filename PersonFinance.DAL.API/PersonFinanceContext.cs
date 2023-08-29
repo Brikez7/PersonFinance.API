@@ -12,11 +12,13 @@ namespace PersonFinance.API.DAL
         public DbSet<Income> Incomes { get; set; }
         public DbSet<InvestAccount> InvestAccounts { get; set; }
         public DbSet<BankingAccount> BankingAccounts { get; set; }
-        public DbSet<Cash> Cashs { get; set; }    
+        public DbSet<Cash> Cashes { get; set; }    
 
         public PersonFinanceContext(DbContextOptions<PersonFinanceContext> options) : base(options){ }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

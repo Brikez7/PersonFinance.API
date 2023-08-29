@@ -7,6 +7,8 @@ using PersonFinance.API.Domain.Response;
 
 namespace PersonFinance.API.Controllers
 {
+    [Route("PersonFinance/v1/[controller]")]
+    [ApiController]
     public class IncomeController : ControllerBase
     {
         private readonly IGenericRepository<Income> _incomeRepository;

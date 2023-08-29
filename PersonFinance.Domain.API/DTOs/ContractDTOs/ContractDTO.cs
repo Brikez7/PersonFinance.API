@@ -5,11 +5,11 @@ namespace PersonFinance.API.Domain.Entities
     public class ContractDTO
     {
         public Guid Id { get; set; }
-        public string UserName { get; set; } = null!;
-        public string OtherPerson { get; set; } = null!;
+        public string UserName { get; set; }
+        public string OtherPerson { get; set; }
         public DateTimeOffset ReceiptDate { get; set; }
         public decimal InterestRate { get; set; }
-        public Money MoneyCredit { get; set; } = null!;
+        public Money MoneyCredit { get; set; }
         public bool Returned { get; set; } = false;
         public DateTimeOffset? ReturnedDate { get; set; }
         public Money? ReturnedMoney { get; set; }
