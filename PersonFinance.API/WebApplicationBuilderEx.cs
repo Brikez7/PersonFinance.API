@@ -24,7 +24,7 @@ namespace PersonFinance.API
         }
         public static void AddHostedServices(this WebApplicationBuilder webApplicationBuilder)
         {
-            webApplicationBuilder.Services.AddHostedService<DatabaseMigrationHostedService>();
+            //webApplicationBuilder.Services.AddHostedService<DatabaseMigrationHostedService>();
         }
     }
 }

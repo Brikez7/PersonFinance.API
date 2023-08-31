@@ -13,7 +13,7 @@ namespace PersonFinance.API.DAL.ConfigurationEntities.ConfigurationExtensions
             builder.OwnsOne(fieldMoney,
                 on =>
                 {
-                    on.Property(e => e.Corrency)
+                    on.Property(e => e.Currency)
                       .HasColumnType(EntityDataTypes.SmallInt);
 
                     on.Property(e => e.Amount)
